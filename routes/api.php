@@ -19,12 +19,12 @@ use Illuminate\Support\Facades\Route;
 Route::controller(AuthController::class)->group(function () {
     Route::post('register', 'register');
     Route::get('login', 'loginRedirected')->name('login');
-    Route::post('login', 'login');
+    Route::post('login', 'login')->middleware('throttle:10,1'); // Rate limiting for login route
 });
 
-Route::get('recipes', [RecipeController::class, 'index']); // Public route for listing recipes
+Route::get('recipes', [RecipeController::class, 'index'])->middleware('throttle:60,1'); // Public route for listing recipes with rate limiting
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'throttle:10,1'])->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::apiResource('recipes', RecipeController::class)->except('index'); // Protect all other recipe routes
 });
