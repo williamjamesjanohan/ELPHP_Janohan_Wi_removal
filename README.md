@@ -47,4 +47,4 @@ Follow these steps to set up the backend REST API application on your local mach
      ```
 
 7. **Access the API**
-   Use Postman and import ELPHP_Janohan_Wi_removal.json to test the API routes.
+   - Use Postman and import ELPHP_Janohan_Wi_removal.json to test the API routes.
